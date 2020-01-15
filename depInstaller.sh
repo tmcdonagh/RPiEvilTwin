@@ -1,5 +1,8 @@
 #!/bin/bash
 # Installs software before installer.sh is run
+export NCURSES_NO_UTF8_ACS=1
+
+dialog --yesno 
 sudo apt update -y
 sudo apt upgrade -y
 sudo apt install -y dialog
