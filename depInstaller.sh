@@ -56,24 +56,25 @@ then
 	if grep -q 'interface wlan0' /etc/dhcpcd.conf
 	then
 		echo "Exists"
-		exit
 	else
 		echo "Does not exist" 
-		cat myInterface.conf >> /etc/dhcpcd.conf
-		exit
+		cat configs/myInterface.conf >> /etc/dhcpcd.conf
 	fi
 	sudo systemctl restart dhcpcd
+	sudo cp configs/hostapd.conf /etc/hostapd/hostapd.conf
+	sudo cp configs/defaultHostapd /etc/default/hostapd
+	sudo systemctl daemon-reload
 
 	
 fi
 
 # NoDogSplash
-dialog --yesno "Install nodogsplash?" 10 30
-if [ $? == 0 ]
-then
-	cd ~
-	git clone https://github.com/nodogsplash/nodogsplash.git
-	cd ~/nodogsplash
-	make
-	sudo make install
-fi
+#dialog --yesno "Install nodogsplash?" 10 30
+#if [ $? == 0 ]
+#then
+#	cd ~
+#	git clone https://github.com/nodogsplash/nodogsplash.git
+#	cd ~/nodogsplash
+#	make
+#	sudo make install
+#fi
