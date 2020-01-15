@@ -13,6 +13,7 @@ dialog --yesno "Hostname is $(hostname) \nDo you want to change hostname?" 10 30
 if [ $? == 0 ]
 then
 	hostname=$(dialog --inputbox "Set hostname to: " 10 25 --output-fd 1)
+	sudo sed -i "s/$(hostname)/$hostname/g" /etc/hosts
 	hostnamectl set-hostname $hostname
 fi
 
