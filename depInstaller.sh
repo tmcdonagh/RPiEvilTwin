@@ -2,16 +2,18 @@
 # Installs software before installer.sh is run
 export NCURSES_NO_UTF8_ACS=1
 
-dialog --yesno 
-sudo apt update -y
-sudo apt upgrade -y
-sudo apt install -y dialog
+dialog --yesno "Update?" 10 30
+if [ $? == 0 ]
+then
+	sudo apt update -y
+	sudo apt upgrade -y
+fi
 
 dialog --yesno "Hostname is $(hostname) \nDo you want to change hostname?" 10 30
 if [ $? == 0 ]
 then
 	hostname=$(dialog --inputbox "Set hostname to: " 10 25 --output-fd 1)
-	hostnamectl --set-name $hostname
+	hostnamectl set-hostname $hostname
 fi
 
 dialog --yesno "Install apt installable dependencies?" 10 30
