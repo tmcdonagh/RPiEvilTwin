@@ -64,8 +64,25 @@ then
 	sudo cp configs/hostapd.conf /etc/hostapd/hostapd.conf
 	sudo cp configs/defaultHostapd /etc/default/hostapd
 	sudo systemctl daemon-reload
+	sudo cp configs/initHostapd /etc/init.d/hostapd
+	sudo cp configs/dnsmasq.conf /etc/dnsmasq.conf
+	sudo cp configs/sysctl.conf /etc/sysctl.conf
+	sudo sh -c "echo 1 > /proc/sys/net/ipv4/ip_forward"
+	sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+	sudo sh -c "iptables-save > /etc/iptables.ipv4.nat"
+	sudo cp configs/rc /etc/rc.local
 
-	
+	sudo systemctl unmask hostapd
+	sudo systemctl enable hostapd
+	sudo systemctl start hostapd
+	sudo service dnsmasq start
+fi
+
+# Reboot
+dialog --yesno "Reboot?" 10 30
+if [ $? == 0 ]
+then
+	sudo reboot
 fi
 
 # NoDogSplash
