@@ -88,6 +88,21 @@ then
 	sudo service dnsmasq start
 fi
 
+
+# NoDogSplash
+dialog --yesno "Install nodogsplash?" 10 30
+if [ $? == 0 ]
+then
+	git clone https://github.com/nodogsplash/nodogsplash.git
+	cd nodogsplash
+	make
+	sudo make install
+	cd ..
+
+	sudo cp configs/nodogsplash.conf /etc/nodogsplash/nodogsplash.conf
+fi
+
+
 # Reboot
 dialog --yesno "Reboot?" 10 30
 if [ $? == 0 ]
@@ -95,13 +110,10 @@ then
 	sudo reboot
 fi
 
-# NoDogSplash
-#dialog --yesno "Install nodogsplash?" 10 30
-#if [ $? == 0 ]
-#then
-#	cd ~
-#	git clone https://github.com/nodogsplash/nodogsplash.git
-#	cd ~/nodogsplash
-#	make
-#	sudo make install
-#fi
+
+
+
+
+
+
+
