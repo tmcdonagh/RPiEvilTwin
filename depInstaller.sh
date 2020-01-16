@@ -2,6 +2,8 @@
 # Installs software before installer.sh is run
 # Requires dialog to be installed
 
+START=$(date +%s) # Sets initial time for time calc
+
 # Fixes issue with putty not showing borders
 export NCURSES_NO_UTF8_ACS=1
 
@@ -54,6 +56,11 @@ then
 	ssid=$(dialog --clear --inputbox "Set network name to: " 10 25 --output-fd 1)
 	psk=$(dialog --clear --insecure --passwordbox "Set password to: " 10 25 --output-fd 1)
 
+	if [ -z "$ssid" ] || [ -z "$psk" ]
+	then
+		exit
+	fi
+
 	sudo systemctl stop hostapd
 	sudo systemctl stop dnsmasq
 
@@ -105,6 +112,37 @@ then
 fi
 
 
+# Clouddb mySQL docker container
+dialog --yesno "Install local mySQL server?" 10 30
+if [ $? == 0 ]
+then
+	cd clouddb
+	./destroy.sh
+	./installer.sh
+	cd ..
+fi
+
+# Creates Docker container with LAMP stack
+dialog --yesno "Install Web Server?" 10 30
+if [ $? == 0 ]
+then
+	cd web
+	./destroy.sh
+	./installer.sh
+	cd ..
+fi
+
+# Builds docker network and assigns ip's so containers can communicate
+dialog --yesno "Create Docker Network?" 10 30
+if [ $? == 0 ]
+then
+	cd clouddb
+	./networkCreator.sh
+	cd ..
+fi
+
+
+
 # Reboot
 dialog --yesno "Reboot?" 10 30
 if [ $? == 0 ]
@@ -114,6 +152,24 @@ fi
 
 
 
+# Start time calc
+END=$(date +%s)
+totalSeconds=$(($END - $START))
+if (( $totalSeconds > 60 ))
+then
+  totalMinutes=$(($totalSeconds/60))
+  remainderSeconds=$(($totalSeconds - (60*$totalMinutes)))
+  printf "\n" # Makes a gap for readability
+  if [ $totalMinutes -eq 1 ]
+  then
+    echo "Script took $totalMinutes minute and $remainderSeconds seconds to complete"
+  else
+    echo "Script took $totalMinutes minutes and $remainderSeconds seconds to complete"
+  fi
+else
+  echo "Script took $totalSeconds seconds to complete"
+fi
+# End time calc
 
 
 

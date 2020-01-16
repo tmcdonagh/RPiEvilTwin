@@ -4,6 +4,7 @@ do
   mysqladmin -uroot -ptest processlist
   if [ $? -eq 0 ]
   then
+      mysql -ptest < /src/main.sql
     # Exists
     if [ -d /var/lib/mysql/clouddb ]
     then
