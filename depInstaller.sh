@@ -50,6 +50,10 @@ fi
 dialog --yesno "Setup Access Point?" 10 30
 if [ $? == 0 ]
 then
+
+	ssid=$(dialog --clear --inputbox "Set network name to: " 10 25 --output-fd 1)
+	psk=$(dialog --clear --insecure --passwordbox "Set password to: " 10 25 --output-fd 1)
+
 	sudo systemctl stop hostapd
 	sudo systemctl stop dnsmasq
 
@@ -61,7 +65,13 @@ then
 		cat configs/myInterface.conf >> /etc/dhcpcd.conf
 	fi
 	sudo systemctl restart dhcpcd
-	sudo cp configs/hostapd.conf /etc/hostapd/hostapd.conf
+
+	#sudo cp configs/hostapd.conf /etc/hostapd/hostapd.conf
+	sudo cp configs/bareHostapd.conf /etc/hostapd/hostapd.conf
+	sudo echo "ssid=$ssid" >> /etc/hostapd/hostapd.conf
+	sudo echo "wpa_passphrase=$psk" >> /etc/hostapd/hostapd.conf
+
+
 	sudo cp configs/defaultHostapd /etc/default/hostapd
 	sudo systemctl daemon-reload
 	sudo cp configs/initHostapd /etc/init.d/hostapd
