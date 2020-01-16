@@ -93,8 +93,10 @@ fi
 dialog --yesno "Install nodogsplash?" 10 30
 if [ $? == 0 ]
 then
-	git clone https://github.com/nodogsplash/nodogsplash.git
+	sudo rm -r nodogsplash/
+	git clone https://github.com/nodogsplash/nodogsplash.git 
 	cd nodogsplash
+	git checkout 41c8752f6217886ee4a3f048578d867cdcc04cd6
 	make
 	sudo make install
 	cd ..
