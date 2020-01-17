@@ -7,6 +7,9 @@ START=$(date +%s) # Sets initial time for time calc
 # Fixes issue with putty not showing borders
 export NCURSES_NO_UTF8_ACS=1
 
+#option=$(dialog --checklist --output-fd 1 "Choose packages:" 10 60 4 1 test on 2 test off)
+#echo $option 
+
 dialog --yesno "Update?" 10 30
 if [ $? == 0 ]
 then
