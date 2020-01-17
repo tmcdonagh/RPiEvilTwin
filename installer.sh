@@ -37,7 +37,8 @@ then
 		ca-certificates \
 		curl \
 		gnupg2 \
-		software-properties-common 
+		software-properties-common \
+		bridge-utils
 fi
 
 # Docker
@@ -74,7 +75,7 @@ then
 	sudo systemctl restart dhcpcd
 
 	#sudo cp configs/hostapd.conf /etc/hostapd/hostapd.conf
-	sudo cp configs/bareHostapd.conf /etc/hostapd/hostapd.conf
+	sudo cp configs/hostapd.conf /etc/hostapd/hostapd.conf
 	sudo echo "ssid=$ssid" >> /etc/hostapd/hostapd.conf
 	sudo echo "wpa_passphrase=$psk" >> /etc/hostapd/hostapd.conf
 
@@ -93,6 +94,8 @@ then
 	sudo systemctl enable hostapd
 	sudo systemctl start hostapd
 	sudo service dnsmasq start
+
+
 fi
 
 
