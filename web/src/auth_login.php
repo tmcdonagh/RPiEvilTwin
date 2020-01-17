@@ -11,10 +11,9 @@ if($mysqli === false){
   die("ERROR: Could not connect. " . $mysqli->connect_error);
 }
 
-
 // Escape user inputs for security
 $subUser = $mysqli->real_escape_string($_REQUEST['username']);
-$subPass = $mysqli->real_escape_string($_REQUEST['password']); 
+$subPass = $mysqli->real_escape_string($_REQUEST['password']);
 
 date_default_timezone_set("America/Chicago");
 $time = date("Y/m/d h:i:s a");
