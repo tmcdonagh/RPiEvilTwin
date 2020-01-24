@@ -50,6 +50,13 @@ if [ $? == 0 ]
 then
 	curl -sSL https://get.docker.com | sh
 	sudo usermod -aG docker pi
+	# Reboot
+	dialog --yesno "Reboot? (Docker won't work until reboot)" 10 30
+	if [ $? == 0 ]
+	then
+		sudo reboot
+	fi
+
 fi
 
 # Access Point
