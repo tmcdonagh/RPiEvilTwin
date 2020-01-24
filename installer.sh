@@ -70,9 +70,9 @@ then
 
 	if grep -q 'interface wlan0' /etc/dhcpcd.conf
 	then
-		echo "Exists"
+		#echo "Exists"
 	else
-		echo "Does not exist" 
+		#echo "Does not exist" 
 		cat configs/myInterface.conf >> /etc/dhcpcd.conf
 	fi
 	sudo systemctl restart dhcpcd
