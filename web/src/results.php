@@ -23,7 +23,7 @@ function getDBData(){
 	echo "<h3>Login Info:</h2>";
 
 	if ($result->num_rows > 0) {
-		echo "<table><tr><th>Email</th><th>Password</th><th>Date</th></tr>";
+		echo "<table class=\"table\"><tr><th>Email</th><th>Password</th><th>Date</th></tr>";
 		// output data of each row
 		while($row = $result->fetch_assoc()) {
 			echo "<tr><td>".$row["username"]."</td><td>".$row["password"]."</td><td>".$row["time"]."</td></tr>";
