@@ -13,4 +13,6 @@ sudo apt install -y dialog git
 git clone https://github.com/tmcdonagh/RPiEvilTwin.git
 cd RPiEvilTwin/
 sudo ./installer.sh
+# Reconnect after reboot once script installs docker
+sudo ./installer.sh # Choose no on previously done options
 ```
