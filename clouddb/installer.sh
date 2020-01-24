@@ -6,3 +6,5 @@ sudo docker run \
   -e MYSQL_ROOT_PASSWORD=test \
   -d clouddb 
 
+sudo docker exec -it clouddb /src/start.sh &> /dev/null
+
