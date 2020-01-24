@@ -2,7 +2,7 @@
 
 ## Demo
 
-[![Demo Video](img/demoThumbnail.PNG)](https://www.youtube.com/watch?v=iCU1NjdYoBs)
+[![Demo Video](img/demoThumbnail.jpg)](https://www.youtube.com/watch?v=iCU1NjdYoBs)
 
 ## Installation
 
