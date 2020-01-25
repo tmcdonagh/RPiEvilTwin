@@ -123,6 +123,7 @@ then
 	cd ..
 
 	sudo cp configs/nodogsplash.conf /etc/nodogsplash/nodogsplash.conf
+	sudo cp configs/ndsRc.local /etc/rc.local
 fi
 
 
