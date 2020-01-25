@@ -30,7 +30,7 @@ fi
 dialog --yesno "Install apt installable dependencies?" 10 30
 if [ $? == 0 ]
 then
-	sudo apt install \
+	sudo apt install -y \
 		vim \
 		git \
 		libmicrohttpd-dev \
