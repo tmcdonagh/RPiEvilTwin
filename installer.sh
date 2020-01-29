@@ -141,14 +141,23 @@ fi
 dialog --yesno "Install Web Server?" 10 30
 if [ $? == 0 ]
 then
-	cd web
-	./destroy.sh
-	./installer.sh
-	cd ..
+	dialog --yesno "Are you running on a Raspberry Pi Zero?" 10 30
+	if [ $? == 0 ]
+	then
+		cd web 
+		./destroy.sh
+		./zeroInstaller.sh
+		cd ..
+	else
+		cd web
+		./destroy.sh
+		./installer.sh
+		cd ..
+	fi
 fi
 
 # Builds docker network and assigns ip's so containers can communicate
-dialog --yesno "Create Docker Network?" 10 30
+dialog --yesno "Create Docker Network?\n(Not necessary on Raspberry Pi Zero)" 10 30
 if [ $? == 0 ]
 then
 	cd clouddb
@@ -159,7 +168,7 @@ fi
 
 
 # Reboot
-dialog --yesno "Reboot?" 10 30
+dialog --yesno "Reboot?\n(Final step)" 10 30
 if [ $? == 0 ]
 then
 	sudo reboot
